@@ -1,0 +1,57 @@
+main {
+
+  #results {
+    overflow: auto;
+  }
+
+  .agent {
+    background-color: white;
+    border: 1px solid #ccc;
+    margin: 20px 0px;
+    overflow: auto;
+    padding: 20px;
+
+    .pi {
+      float: left;
+      width: 150px;
+      text-align:center;
+    }
+
+    .stats {
+      margin-left: 160px;
+
+      div {
+        padding: 5px;
+      }
+    }
+
+    .type-stats ul li {
+        display: inline-block;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background: #f1f1f1;
+    }
+
+    .type-stats ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .side-stats {
+        border: 1px solid #f8f8f8;
+        padding: 10px;
+        margin: 10px;
+        margin-top: 30px
+    }
+
+  }
+
+  .agent-profile-pic {
+    margin-top: 30px;
+    img {
+      border-radius: 50%;
+    }
+  }
+
+}

@@ -1,0 +1,89 @@
+<%- @agents.each do |agent| %>
+  <div class="agent" data-agent-id="<%= agent.id %>">
+    <div class="pi">
+      <div class="agent-profile-pic"></div>
+      <div class="name"><%= agent.name %></div>
+      <div class="brokerage"><%= agent.brokerage %></div>
+      <div class="side-stats">
+          <div><b>Buyers:</b> <%= agent.agent_stat.buyers %></div>
+          <div><b>Sellers:</b> <%= agent.agent_stat.sellers %></div>
+      </div>
+    </div>
+    <div class="stats">
+
+      <div class="type-stats">
+        <ul>
+          <li>SFH: <%= agent.agent_stat.sfh %></li>
+          <li>Condo: <%= agent.agent_stat.condo %></li>
+          <li>Townhome: <%= agent.agent_stat.townhome %></li>
+          <li>Mobile: <%= agent.agent_stat.mobile %></li>
+          <li>Land: <%= agent.agent_stat.land %></li>
+        </li>
+      </div>
+      <div class="price-stats">
+        <b>Price</b><hr>
+        <canvas id="chart<%= agent.id %>"></canvas>
+      </div>
+    </div>
+
+
+  </div>
+
+  <script type="text/javascript">
+    (function(){
+      var ctx = $('#chart<%= agent.id %>');
+      ctx[0].height = 80;
+      var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'line',
+
+          // The data for our dataset
+          data: {
+              labels: ["$0 - $150k", "$150k - $300k", "$300k - $500k", "$500k - $750k", "$750k - $1m", "$1m+"],
+              datasets: [{
+                  label: "Prices",
+                  backgroundColor: '#d2ddf8',
+                  borderColor: '#7593d3',
+                  data: [
+                    <%= agent.agent_stat.pr1 %>,
+                    <%= agent.agent_stat.pr2 %>,
+                    <%= agent.agent_stat.pr3 %>,
+                    <%= agent.agent_stat.pr4 %>,
+                    <%= agent.agent_stat.pr5 %>,
+                    <%= agent.agent_stat.pr6 %>]
+              }]
+          },
+          // Configuration options go here
+          options: {
+            legend: {
+              display: false
+            }
+          }
+      });
+    })();
+  </script>
+
+<% end %>
+
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+
+    var $agents = $('.agent-profile-pic');
+
+    $.ajax({
+      url: 'https://randomuser.me/api/?results=' + $agents.length,
+      dataType: 'json',
+      success: function(data) {
+
+        $.each(data.results, function(i, randomUser) {
+          $($agents[i]).append('<img src ="' + randomUser.picture.medium + '" />')
+        });
+
+      }
+    });
+  });
+
+
+</script>
